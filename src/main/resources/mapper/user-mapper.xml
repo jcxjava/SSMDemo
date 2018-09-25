@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--一个命名空间（namespace） 对应一个dao接口,
+        这个id也应该对应dao里面的某个方法（相当于方法的实现），因此id 应该与方法名一致-->
+<mapper namespace="com.jiangcx.ssm.dao.UserDao">
+
+    <resultMap id="UserBaseMap" type="com.jiangcx.ssm.entity.User">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="gender" property="gender" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="getUserByUserId" parameterType="java.lang.String" resultType="com.jiangcx.ssm.entity.User">
+        SELECT * FROM user WHERE id = #{id}
+    </select>
+
+    <select id="getAllUser" resultType="java.util.HashMap">
+        SELECT * FROM user
+    </select>
+
+    <update id="update" parameterType="com.jiangcx.ssm.entity.User">
+        UPDATE USER SET NAME = #{name}, gender = #{gender} where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.String">
+        delete from user WHERE id = #{id}
+    </delete>
+
+    <insert id="add" parameterType="com.jiangcx.ssm.entity.User">
+        INSERT into user(name,gender) values(#{name}, #{gender})
+    </insert>
+
+</mapper>
